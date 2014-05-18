@@ -52,3 +52,8 @@ coverage.xml
 # Sphinx documentation
 docs/_build/
 
+# PyCharm
+.idea
+
+# Storage dir
+_storage
