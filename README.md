@@ -3,6 +3,8 @@ GUTENBERG-BULK-DOWNLOADER
 
 Bulk downloader for free ebooks hosted at [Project Gutenberg](http://www.gutenberg.org/).
 
+Project Gutenberg has a sort of webservice; the protocol is explained [here](http://www.gutenberg.org/wiki/Gutenberg:Information_About_Robot_Access_to_our_Pages)
+
 Follow the steps in order to create a *local development* copy in a Linux/Mac OS machine.
 
 1. Create a project folder in your workspace
