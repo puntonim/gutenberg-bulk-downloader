@@ -5,6 +5,7 @@ http://www.gutenberg.org/wiki/Gutenberg:Information_About_Robot_Access_to_our_Pa
 import argparse
 
 from downloader.crawler import GutenbergCrawler
+from downloader.archivemanager import FolderItemsUnzipper
 from downloader import FileDownloader
 import settings
 
@@ -15,6 +16,8 @@ def main(args):
     crawler.run()
     downloader = FileDownloader(crawler.download_urls, settings.STORAGE_PATH)
     downloader.run()
+    unzipper = FolderItemsUnzipper(settings.STORAGE_PATH)
+    unzipper.run()
     print('END.')
 
 if __name__ == '__main__':
