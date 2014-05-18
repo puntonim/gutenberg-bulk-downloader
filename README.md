@@ -51,4 +51,5 @@ Appendix A. Command line parameters
       --n-ebooks N_EBOOKS   Number of ebooks to download (default: 100).
 
 E.g. download .txt and .pdf files, English and German language, max 500 files:
+
     $ python manage.py --file-type pdf --file-type txt --lang en --lang de --n-ebooks 500
