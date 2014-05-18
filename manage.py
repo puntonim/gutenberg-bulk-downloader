@@ -5,12 +5,16 @@ http://www.gutenberg.org/wiki/Gutenberg:Information_About_Robot_Access_to_our_Pa
 import argparse
 
 from downloader.crawler import GutenbergCrawler
+from downloader import FileDownloader
+import settings
 
 
 def main(args):
     print('START.')
     crawler = GutenbergCrawler(args.file_type, args.n_ebooks, args.lang)
     crawler.run()
+    downloader = FileDownloader(crawler.download_urls, settings.STORAGE_PATH)
+    downloader.run()
     print('END.')
 
 if __name__ == '__main__':
