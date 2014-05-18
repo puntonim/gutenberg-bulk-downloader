@@ -18,6 +18,7 @@ class GutenbergCrawler:
         print(' * Language: {}'.format(self.langs))
 
         next_url = self._build_initial_url()
+        print(' * Initial url: {}\n'.format(next_url))
 
         while True:
             r = requests.get(next_url)
