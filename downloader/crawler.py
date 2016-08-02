@@ -48,15 +48,16 @@ class GutenbergCrawler:
         soup = BeautifulSoup(html)
         next_url = None
         for p in soup.find_all('p'):
-            link = p.a.get('href')
-            if p.a.text.lower() == 'next page':
-                next_url = 'http://www.gutenberg.org/robot/{}'.format(link)
-                continue
-            self.download_urls.append(link)
-            try:
-                self._check_n_ebooks()
-            except ThresholdReached:
-                return None
+            if p.a:
+                link = p.a.get('href')
+                if p.a.text.lower() == 'next page':
+                    next_url = 'http://www.gutenberg.org/robot/{}'.format(link)
+                    continue
+                self.download_urls.append(link)
+                try:
+                    self._check_n_ebooks()
+                except ThresholdReached:
+                    return None
         return next_url
 
     def _check_n_ebooks(self):
