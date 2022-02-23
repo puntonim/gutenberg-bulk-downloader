@@ -1,4 +1,5 @@
 import requests
+import certifi
 from bs4 import BeautifulSoup
 
 from exceptions import ThresholdReached
@@ -21,7 +22,7 @@ class GutenbergCrawler:
         print(' * Initial url: {}\n'.format(next_url))
 
         while True:
-            r = requests.get(next_url)
+            r = requests.get(next_url, verify=certifi.where())
             response_sanity_check(r)
             next_url = self._parse(r.content.decode('utf-8'))
 
@@ -31,7 +32,7 @@ class GutenbergCrawler:
 
     def _build_initial_url(self):
         # An url with multiple file types or langs has this form:
-        # http://www.gutenberg.org/robot/harvest?&filetypes[]=mp3&filetypes[]=pdf&
+        # https://www.gutenberg.org/robot/harvest?&filetypes[]=mp3&filetypes[]=pdf&
         # langs[]=en&langs[]=de
 
         file_types_arg = ''
@@ -42,7 +43,7 @@ class GutenbergCrawler:
         for i in self.langs:
             langs_arg += '&langs[]={}'.format(i)
 
-        return 'http://www.gutenberg.org/robot/harvest?{}{}'.format(file_types_arg, langs_arg)
+        return 'https://www.gutenberg.org/robot/harvest?{}{}'.format(file_types_arg, langs_arg)
 
     def _parse(self, html):
         soup = BeautifulSoup(html)
@@ -51,7 +52,7 @@ class GutenbergCrawler:
             if p.a:
                 link = p.a.get('href')
                 if p.a.text.lower() == 'next page':
-                    next_url = 'http://www.gutenberg.org/robot/{}'.format(link)
+                    next_url = 'https://www.gutenberg.org/robot/{}'.format(link)
                     continue
                 self.download_urls.append(link)
                 try:
